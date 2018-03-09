@@ -21,7 +21,7 @@ extension RawRepresentable where Self.RawValue == Int {
 	}
 
 	public var stringValue: String {
-		return Mirror.customReflect(self)
+		return self.name
 	}
 
 	public static var all: [Self] {
