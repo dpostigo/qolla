@@ -54,5 +54,3 @@ extension RawRepresentable where Self: Equatable {
 		return lhs - [rhs]
 	}
 }
-
-

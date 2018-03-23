@@ -23,27 +23,6 @@ extension Optional {
     }
 }
 
-extension Collection {
-    @discardableResult
-    public func first(handler: (Element) -> Void) -> Self {
-        if let first = self.first { handler(first) }
-        return self
-    }
-   
-    @discardableResult
-    public func isEmpty(handler: () -> Void) -> Self {
-        if self.isEmpty { handler() }
-        return self
-    }
-}
-
-extension BidirectionalCollection {
-    @discardableResult
-    public func last(handler: (Element) -> Void) -> Self {
-        if let last = self.last { handler(last) }
-        return self
-    }
-}
 
 extension Bool {
     @discardableResult
