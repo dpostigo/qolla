@@ -27,12 +27,20 @@ extension Sequence {
 }
 
 extension Sequence {
-	public var prettyPrinted: String { return self.string(options: .prettyPrinted)! }
-	public var prettyPrintSorted: String { return self.string(options: [.prettyPrinted, .sortedKeys])! }
+	public var prettyPrinted: String {
+        return self.string(options: .prettyPrinted)!
+    }
+    
+    @available(iOS 11.0, macOS 10.13, *)
+	public var prettyPrintSorted: String {
+        return self.string(options: [.prettyPrinted, .sortedKeys])!
+    }
+    
 	private func string(options: JSONSerialization.WritingOptions) -> String? {
 		return String(self, options: options)
 	}
 }
+
 extension String {
 	fileprivate init?<S: Sequence>(_ object: S, options: JSONSerialization.WritingOptions) {
 		do { try self.init(data: JSONSerialization.data(withJSONObject: object, options: options), encoding: .utf8) }
