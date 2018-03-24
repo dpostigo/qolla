@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Qolla'
-  s.version          = '0.0.3'
+  s.version          = '0.0.4'
   s.summary          = 'swift things'
   s.description      = 'something something architecture something something appropriation, yadda yadda'
 
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.ios.deployment_target = '11.0'
-  s.osx.deployment_target = '10.13'
+  s.osx.deployment_target = '10.12'
 
 
   s.source_files = 'Qolla/**/*'
