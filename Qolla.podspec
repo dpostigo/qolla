@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Qolla'
-  s.version          = '0.0.4'
+  s.version          = '0.0.5'
   s.summary          = 'swift things'
   s.description      = 'something something architecture something something appropriation, yadda yadda'
 

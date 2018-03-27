@@ -5,6 +5,31 @@
 import Foundation
 
 extension Sequence {
+	
+	public var array: [Element] {
+		return Array(self)
+	}
+	public func all(_ body: (Self.Element) throws -> Bool) rethrows -> Bool {
+		return try self.filter { try body($0) == false }.count > 0
+	}
+	
+	// MARK: Pretty print
+	
+	public var prettyPrinted: String {
+		return self.string(options: .prettyPrinted)!
+	}
+	
+	@available(iOS 11.0, macOS 10.13, *)
+	public var prettyPrintSorted: String {
+		return self.string(options: [.prettyPrinted, .sortedKeys])!
+	}
+	
+	private func string(options: JSONSerialization.WritingOptions) -> String? {
+		return String(self, options: options)
+	}
+	
+	// MARK: Methods
+	
 	public func select(_ find: (Self.Iterator.Element) -> Bool) -> Self.Iterator.Element? {
 		var generator = self.makeIterator()
 		while let elem = generator.next() {
@@ -26,18 +51,9 @@ extension Sequence {
 	}
 }
 
-extension Sequence {
-	public var prettyPrinted: String {
-        return self.string(options: .prettyPrinted)!
-    }
-    
-    @available(iOS 11.0, macOS 10.13, *)
-	public var prettyPrintSorted: String {
-        return self.string(options: [.prettyPrinted, .sortedKeys])!
-    }
-    
-	private func string(options: JSONSerialization.WritingOptions) -> String? {
-		return String(self, options: options)
+extension Sequence where Element: Hashable {
+	public var unique: [Element] {
+		return Set<Element>(self).array
 	}
 }
 
@@ -45,21 +61,6 @@ extension String {
 	fileprivate init?<S: Sequence>(_ object: S, options: JSONSerialization.WritingOptions) {
 		do { try self.init(data: JSONSerialization.data(withJSONObject: object, options: options), encoding: .utf8) }
 		catch { return nil }
-	}
-}
-
-
-extension Array where Element : Equatable {
-	@discardableResult
-	public mutating func remove(_ element: Iterator.Element) -> Element {
-		let index = self.index(of: element)
-		return self.remove(at: index!)
-	}
-	
-	public static func -(lhs: [Iterator.Element], rhs: [Iterator.Element]) -> [Iterator.Element] {
-		var lhs = lhs
-		rhs.forEach { lhs.remove($0) }
-		return lhs
 	}
 }
 

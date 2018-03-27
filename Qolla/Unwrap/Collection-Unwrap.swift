@@ -6,32 +6,32 @@ import Foundation
 
 extension Collection {
     @discardableResult
-    public func first(handler: (Element) -> Void) -> Self {
-        if let first = self.first { handler(first) }
+    public func first(handler: (Element) throws -> Void) rethrows -> Self {
+        if let first = self.first { try handler(first) }
         return self
     }
     
     @discardableResult
-    public func some(handler: () -> Void) -> Self {
-        if !self.isEmpty { handler() }; return self
+    public func some(handler: (Self) throws -> Void) rethrows -> Self {
+        if !self.isEmpty { try handler(self) }; return self
     }
     
     @discardableResult
-    public func empty(handler: () -> Void) -> Self {
-        if self.isEmpty { handler() }; return self
+    public func empty(handler: () throws -> Void) rethrows -> Self {
+        if self.isEmpty { try handler() }; return self
     }
     
     @discardableResult
-    public func isEmpty(handler: () -> Void) -> Self {
-        if self.isEmpty { handler() }
+    public func isEmpty(handler: () throws -> Void) rethrows -> Self {
+        if self.isEmpty { try handler() }
         return self
     }
 }
 
 extension BidirectionalCollection {
     @discardableResult
-    public func last(handler: (Element) -> Void) -> Self {
-        if let last = self.last { handler(last) }
+    public func last(handler: (Element) throws -> Void) rethrows -> Self {
+        if let last = self.last { try handler(last) }
         return self
     }
 }

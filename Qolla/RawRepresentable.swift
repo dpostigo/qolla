@@ -10,6 +10,10 @@ extension RawRepresentable {
 
 extension RawRepresentable where Self.RawValue == Int {
 
+	public init?(_ rawValue: RawValue) {
+		self.init(rawValue: rawValue)
+	}
+	
 	public init?(intValue: Int) {
 		guard let value = Self.init(rawValue: intValue) else { return nil }
 		self = value
@@ -48,9 +52,11 @@ extension Sequence where Element: RawRepresentable, Element.RawValue == Int {
 	}
 }
 
+/*
 extension RawRepresentable where Self: Equatable {
 
 	public static func -(lhs: [Self], rhs: Self) -> [Self] {
 		return lhs - [rhs]
 	}
 }
+*/

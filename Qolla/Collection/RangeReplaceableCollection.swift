@@ -5,23 +5,18 @@
 import Foundation
 
 extension RangeReplaceableCollection  {
-    public static func +(lhs: Self, rhs: Element) -> Self {
-        var index = 4
-        index = index - 1
-        return lhs + [rhs]
-    }
-    
-    public static func +=(lhs: inout Self, rhs: Self.Element) {
-        lhs += [rhs]
-    }
+    public static func +(lhs: Self, rhs: Element) -> Self { return lhs + [rhs] }
+    public static func +=(lhs: inout Self, rhs: Self.Element) { lhs += [rhs] }
 }
 
 
 extension RangeReplaceableCollection where Element: Equatable {
-    /*
-    public static func -(lhs: Self, rhs: Element) -> Self {
-        var lhs = lhs
-        lhs.index(where: { $0 == rhs}).some { lhs.remove(at: $0) }
-        return lhs
-    }*/
+
+    public static func -<S: Sequence>(lhs: Self, rhs: S) -> Self where S.Element == Element {
+        return lhs.filter { !rhs.contains($0) }
+    }
+    
+    public static func -(lhs: Self, rhs: Element) -> Self { return lhs - [rhs] }
+    public static func -=(lhs: inout Self, rhs: Self.Element) { lhs = lhs - [rhs] }
+    
 }

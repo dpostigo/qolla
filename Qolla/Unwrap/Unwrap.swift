@@ -6,19 +6,19 @@ import Foundation
 
 extension Optional {
     @discardableResult
-    public func unwrap(handler: (Wrapped) -> Void) -> Optional<Wrapped> {
-        return self.some(handler: handler)
+    public func unwrap(handler: (Wrapped) throws -> Void) rethrows -> Optional<Wrapped> {
+        return try self.some(handler: handler)
     }
     
     @discardableResult
-    public func some(handler: (Wrapped) -> Void) -> Optional<Wrapped> {
-        if case .some(let wrapped) = self { handler(wrapped) }
+    public func some(handler: (Wrapped) throws -> Void) rethrows -> Optional<Wrapped> {
+        if case .some(let wrapped) = self { try handler(wrapped) }
         return self
     }
     
     @discardableResult
-    public func none(handler: () -> Void) -> Optional<Wrapped> {
-        if case .none = self { handler() }
+    public func none(handler: () throws -> Void) rethrows -> Optional<Wrapped> {
+        if case .none = self { try handler() }
         return self
     }
 }
@@ -26,14 +26,14 @@ extension Optional {
 
 extension Bool {
     @discardableResult
-    public func `true`(handler: () -> Void) -> Bool {
-        if self == true { handler() }
+    public func `true`(handler: () throws -> Void) rethrows  -> Bool {
+        if self == true { try handler() }
         return self
     }
     
     @discardableResult
-    public func `false`(handler: () -> Void) -> Bool {
-        if self == false { handler() }
+    public func `false`(handler: () throws -> Void) rethrows  -> Bool {
+        if self == false { try handler() }
         return self
     }
 }

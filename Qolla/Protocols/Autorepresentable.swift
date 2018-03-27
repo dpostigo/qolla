@@ -10,12 +10,8 @@ extension Autorepresentable {
     
     public typealias Handler = (Self) -> Void
     
-    public static var first: Self {
-        return self.init(rawValue: 0)!
-    }
-    
-    public static var last: Self {
-        return self.init(rawValue: Self.count - 1)!
+    public static func count(_ element: Self) -> [Self] {
+        return self.count(element.rawValue + 1)
     }
     
     public static func count(_ count: Int) -> [Self] {
@@ -29,7 +25,7 @@ extension Autorepresentable {
     public static func +(lhs: Self, rhs: Int) -> Self {
         switch lhs.rawValue + rhs {
             case let value where value < Self.count: return self.init(rawValue: value)!
-            default: return Self.first
+            default: return Self(0)!
         }
     }
     
