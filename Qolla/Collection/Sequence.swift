@@ -38,22 +38,22 @@ extension Sequence {
 		return nil
 	}
 	
-	public func element<T>(to elementType: T.Type = T.self) -> T? {
-		return self.elements(to: elementType).first
-	}
-	
-	public func elements<T>(to elementType: T.Type = T.self) -> [T] {
-		return self.flatMap { $0 as? T }
-	}
-	
 	public func dictionary<V>(_ transform: (Element) throws -> V) rethrows -> [Element: V] {
 		return try Dictionary(uniqueKeysWithValues: self.map { try ($0, transform($0)) })
 	}
+
+	public func flatMap<T>(as elementType: T.Type = T.self) -> [T] {
+		return self.flatMap { $0 as? T }
+	}
+	public func first<T>(as elementType: T.Type = T.self) -> T? {
+		return self.flatMap(as: elementType).first
+	}
+	
 }
 
 extension Sequence where Element: Hashable {
 	public var unique: [Element] {
-		return Set<Element>(self).array
+		return Set(self).array
 	}
 }
 
